@@ -4,28 +4,10 @@
       <h5 class="question">{{ question.text }}</h5>
     </div>
     <div class="options-container">
-      <div class="option">
-        <p class="option-label">A</p>
+      <div class="option" v-for="option in question.options" :key="option.id">
+        <p class="option-label">{{ option.label }}</p>
         <div class="option-value">
-          <p>NaCL</p>
-        </div>
-      </div>
-      <div class="option">
-        <p class="option-label">A</p>
-        <div class="option-value">
-          <p>NaCL</p>
-        </div>
-      </div>
-      <div class="option">
-        <p class="option-label">A</p>
-        <div class="option-value">
-          <p>NaCL</p>
-        </div>
-      </div>
-      <div class="option">
-        <p class="option-label">A</p>
-        <div class="option-value">
-          <p>NaCL</p>
+          <p>{{ option.text }}</p>
         </div>
       </div>
     </div>
