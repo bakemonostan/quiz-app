@@ -10,14 +10,16 @@
       <Question
         :question="quiz.questions[currentQuestionIndex]"
         @selectOption="onUserSelect"
+        v-if="!showResult"
       />
+      <Result v-else :correctAnswers="correctAnswers" />
     </div>
-    {{ correctAnswers }}
   </div>
 </template>
 
 <script setup>
 import Question from '../components/Question.vue';
+import Result from '../components/Result.vue';
 import { useRoute } from 'vue-router';
 import { computed, ref, watch } from 'vue';
 import quizes from '../data/data.json';
@@ -29,6 +31,7 @@ const quizId = parseInt(route.params.id);
 const quiz = quizes.find((q) => q.id === quizId);
 const currentQuestionIndex = ref(0);
 const correctAnswers = ref(0);
+const showResult = ref(false);
 
 // computed properties
 const questionStatus = computed(
@@ -43,6 +46,10 @@ const barProgress = computed(
 const onUserSelect = (isCorrect) => {
   if (isCorrect) {
     correctAnswers.value++;
+  }
+
+  if (quiz.questions.length - 1 === currentQuestionIndex.value) {
+    showResult.value = true;
   }
   currentQuestionIndex.value++;
 };
