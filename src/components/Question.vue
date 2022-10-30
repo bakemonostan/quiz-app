@@ -4,7 +4,12 @@
       <h5 class="question">{{ question.text }}</h5>
     </div>
     <div class="options-container">
-      <div class="option" v-for="option in question.options" :key="option.id">
+      <div
+        @click="userOption(option.isCorrect)"
+        class="option"
+        v-for="option in question.options"
+        :key="option.id"
+      >
         <p class="option-label">{{ option.label }}</p>
         <div class="option-value">
           <p>{{ option.text }}</p>
@@ -15,9 +20,13 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
+const emit = defineEmits(['selectOption']);
 const { question } = defineProps(['question']);
+const userOption = (isCorrect) => {
+  emit('selectOption', isCorrect);
+};
 </script>
 
 <style scoped>
